@@ -173,6 +173,8 @@ resource "aws_lambda_function" "csv_reader_lambda" {
   filename = "lambda_function_payload.zip" # This should be a zip file with lambda_function.py inside it
   //source_code_hash = filebase64sha256("lambda_function_payload.zip")
   source_code_hash = data.archive_file.python_lambda_package.output_base64sha256
+
+  
 }
 
 
@@ -195,6 +197,10 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     filter_prefix       = "my-folder/dirty/" # Optional: Only trigger for objects in this prefix
   }
 
-  depends_on = [aws_lambda_function.csv_reader_lambda]
+  depends_on = [
+    aws_s3_bucket.my_bucket,
+    aws_lambda_function.csv_reader_lambda
+                 
+                ]
 }
 

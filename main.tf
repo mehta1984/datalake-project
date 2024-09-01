@@ -95,19 +95,6 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# Create Lambda function (Replace with your function specifics)
-# resource "aws_lambda_function" "my_lambda_function" {
-#   function_name = "my_lambda_function"
-#   role          = aws_iam_role.lambda_role.arn
-#   handler       = "index.handler"
-#   runtime       = "python3.8"
-
-#   # You should replace this with your own Lambda deployment package
-#   filename      = "lambda_function_payload.zip"  # Replace with your Lambda deployment package
-#   source_code_hash = filebase64sha256("lambda_function_payload.zip")
-# }
-
-
 # IAM Policy for S3 read/write access for Lambda
 resource "aws_iam_policy" "lambda_s3_read_write_policy" {
   name        = "LambdaS3ReadWritePolicy"
@@ -200,7 +187,6 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   depends_on = [
     aws_s3_bucket.my_bucket,
     aws_lambda_function.csv_reader_lambda
-                 
                 ]
 }
 

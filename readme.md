@@ -15,9 +15,9 @@ Below are the high level steps it performs.
 
 
 ## Terraform Commands 
-terraform init
-terraform fmt
-terraform validate
-terraform apply
-terraform show
-terraform destroy
+- terraform init
+- terraform fmt
+- terraform validate
+- terraform apply
+- terraform show
+- terraform destroy

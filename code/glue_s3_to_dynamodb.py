@@ -21,6 +21,10 @@ input_dynamic_frame = glueContext.create_dynamic_frame.from_options(
     connection_type="s3",
     connection_options={"paths": [s3_input_path]},
     format="csv"  # Change format to csv, parquet, etc., as needed
+    format_options={
+        "withHeader": True,
+        # "optimizePerformance": True,
+    },
 )
 
 # Convert DynamicFrame to a DataFrame

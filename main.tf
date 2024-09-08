@@ -55,7 +55,7 @@ resource "aws_s3_bucket_acl" "aclrule" {
 variable "s3_folders" {
   type        = list(string)
   description = "The list of S3 folders to create"
-  default     = ["dirty", "clean", "processed"]
+  default     = ["dirty", "clean", "processed", "scripts", "temp"]
 }
 
 
@@ -147,7 +147,7 @@ data "archive_file" "python_lambda_package" {
   output_path = "lambda_function_payload.zip"
 }
 
-# Lambda function to read CSV 
+# Lambda function to read CSV source_bucket
 
 # Create Lambda function
 resource "aws_lambda_function" "csv_reader_lambda" {
@@ -161,7 +161,7 @@ resource "aws_lambda_function" "csv_reader_lambda" {
   //source_code_hash = filebase64sha256("lambda_function_payload.zip")
   source_code_hash = data.archive_file.python_lambda_package.output_base64sha256
 
-  
+
 }
 
 
@@ -187,6 +187,6 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   depends_on = [
     aws_s3_bucket.my_bucket,
     aws_lambda_function.csv_reader_lambda
-                ]
+  ]
 }
 
